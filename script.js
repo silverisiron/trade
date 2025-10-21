@@ -1,3 +1,5 @@
+/** @format */
+
 let price = 100;
 let trend = 0;
 let balance = 10000;
@@ -58,7 +60,8 @@ const chart = new Chart(ctx, {
 
 // 로그 출력
 function log(msg) {
-  logBox.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}<br>` + logBox.innerHTML;
+  logBox.innerHTML =
+    `[${new Date().toLocaleTimeString()}] ${msg}<br>` + logBox.innerHTML;
 }
 
 // === 초기 더미 데이터 생성 ===
@@ -86,12 +89,16 @@ function updatePrice() {
   price += trend + (Math.random() - 0.5) * 2;
   price = Math.max(1, price);
 
-  document.getElementById("price").textContent = `가격: ${price.toFixed(2)} USDT`;
+  document.getElementById("price").textContent = `가격: ${price.toFixed(
+    2
+  )} USDT`;
 
   // 초단위 데이터 저장
   secCounter++;
   if (secCounter >= 60) {
-    const avg = prices.slice(-60).reduce((a, b) => a + b, 0) / Math.min(60, prices.length);
+    const avg =
+      prices.slice(-60).reduce((a, b) => a + b, 0) /
+      Math.min(60, prices.length);
     minuteData.push({ time: new Date().toLocaleTimeString(), price: avg });
     if (minuteData.length > 60) minuteData.shift();
     secCounter = 0;
@@ -100,6 +107,34 @@ function updatePrice() {
   updateChart();
   updatePnL();
   maybeTriggerNews();
+
+  // 호가 데이터 표시 함수
+  function updateOrderBook() {
+    const asksEl = document.getElementById("asks");
+    const bidsEl = document.getElementById("bids");
+    asksEl.innerHTML = "";
+    bidsEl.innerHTML = "";
+
+    // 가격 주변으로 10단계 호가 생성
+    const spread = 0.2;
+    for (let i = 10; i > 0; i--) {
+      const askPrice = (price + i * spread).toFixed(2);
+      const bidPrice = (price - i * spread).toFixed(2);
+      const askVol = (Math.random() * 5 + 1).toFixed(2);
+      const bidVol = (Math.random() * 5 + 1).toFixed(2);
+
+      const askRow = document.createElement("div");
+      askRow.innerHTML = `<span>${askPrice}</span><span>${askVol}</span>`;
+      asksEl.appendChild(askRow);
+
+      const bidRow = document.createElement("div");
+      bidRow.innerHTML = `<span>${bidPrice}</span><span>${bidVol}</span>`;
+      bidsEl.appendChild(bidRow);
+    }
+  }
+
+  // 기존 updatePrice() 마지막에 추가
+  updateOrderBook();
 }
 
 // 차트 갱신
@@ -108,7 +143,8 @@ function updateChart() {
     const now = new Date().toLocaleTimeString();
     labels.push(now);
     prices.push(price);
-    if (labels.length > 300) { // 더미 포함 시 300개 이상 방지
+    if (labels.length > 300) {
+      // 더미 포함 시 300개 이상 방지
       labels.shift();
       prices.shift();
     }
@@ -146,12 +182,18 @@ function openPosition(type) {
   else sellSound.play();
 
   log(
-    `${type === "long" ? "📈 Long" : "📉 Short"} ${leverage}x 포지션 진입 | 증거금: ${margin.toFixed(
-      2
-    )} USDT (${(percent * 100).toFixed(0)}%)`
+    `${
+      type === "long" ? "📈 Long" : "📉 Short"
+    } ${leverage}x 포지션 진입 | 증거금: ${margin.toFixed(2)} USDT (${(
+      percent * 100
+    ).toFixed(0)}%)`
   );
 
-  document.getElementById("position").textContent = `포지션: ${type.toUpperCase()} ${leverage}x @ ${price.toFixed(2)}`;
+  document.getElementById(
+    "position"
+  ).textContent = `포지션: ${type.toUpperCase()} ${leverage}x @ ${price.toFixed(
+    2
+  )}`;
   updateBalance();
 }
 
@@ -173,7 +215,11 @@ function closePosition() {
   }
 
   balance += margin + profit; // 증거금 반환 + 손익 반영
-  log(`✅ 포지션 종료 (${type.toUpperCase()} ${leverage}x) | 손익: ${profit.toFixed(2)} USDT`);
+  log(
+    `✅ 포지션 종료 (${type.toUpperCase()} ${leverage}x) | 손익: ${profit.toFixed(
+      2
+    )} USDT`
+  );
   position = null;
   document.getElementById("position").textContent = "포지션: 없음";
   updateBalance();
@@ -181,7 +227,9 @@ function closePosition() {
 
 // 잔고 표시 갱신
 function updateBalance() {
-  document.getElementById("balance").textContent = `잔고: 💰 ${balance.toFixed(2)} USDT`;
+  document.getElementById("balance").textContent = `잔고: 💰 ${balance.toFixed(
+    2
+  )} USDT`;
 }
 
 // 손익 실시간 표시
@@ -195,8 +243,11 @@ function updatePnL() {
     profit = ((entry - price) / entry) * amount;
   }
   const pnlPercent = (profit / margin) * 100;
-  document.getElementById("position").textContent =
-    `포지션: ${type.toUpperCase()} ${leverage}x @ ${entry.toFixed(2)} | 손익: ${profit.toFixed(2)} USDT (${pnlPercent.toFixed(2)}%)`;
+  document.getElementById(
+    "position"
+  ).textContent = `포지션: ${type.toUpperCase()} ${leverage}x @ ${entry.toFixed(
+    2
+  )} | 손익: ${profit.toFixed(2)} USDT (${pnlPercent.toFixed(2)}%)`;
 }
 
 // 더미 헤드라인 목록
@@ -213,7 +264,8 @@ const dummyNews = [
 // 뉴스 이벤트 트리거
 function maybeTriggerNews() {
   const chance = Math.random();
-  if (chance < 0.02) { // 2% 확률로 발생 (약 50초마다)
+  if (chance < 0.02) {
+    // 2% 확률로 발생 (약 50초마다)
     const event = dummyNews[Math.floor(Math.random() * dummyNews.length)];
     triggerNews(event);
   }
@@ -255,8 +307,12 @@ document.getElementById("minView").addEventListener("click", () => {
 });
 
 // 버튼 이벤트
-document.getElementById("longBtn").addEventListener("click", () => openPosition("long"));
-document.getElementById("shortBtn").addEventListener("click", () => openPosition("short"));
+document
+  .getElementById("longBtn")
+  .addEventListener("click", () => openPosition("long"));
+document
+  .getElementById("shortBtn")
+  .addEventListener("click", () => openPosition("short"));
 document.getElementById("closeBtn").addEventListener("click", closePosition);
 
 // 주기적 업데이트

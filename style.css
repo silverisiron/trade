@@ -89,3 +89,49 @@ button:hover {
 #leverage {
   width: 100%;
 }
+.orderbook-panel {
+  flex: 1;
+  background: #161b22;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  color: #f0f6fc;
+  height: 100%;
+}
+
+.orderbook-panel h3 {
+  color: #58a6ff;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+#orderbook {
+  display: flex;
+  flex-direction: column-reverse; /* 아래가 매수, 위가 매도 */
+  gap: 2px;
+}
+
+#bids div,
+#asks div {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 4px;
+  font-size: 0.9em;
+  border-radius: 4px;
+}
+
+#bids div {
+  background: rgba(35, 134, 54, 0.2); /* 초록 */
+}
+#asks div {
+  background: rgba(218, 54, 51, 0.2); /* 빨강 */
+}
+#bids div:hover {
+  background: rgba(35, 134, 54, 0.4);
+}
+#asks div:hover {
+  background: rgba(218, 54, 51, 0.4);
+}
