@@ -1,0 +1,91 @@
+/** @format */
+
+body {
+  background-color: #0d1117;
+  color: #f0f6fc;
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #58a6ff;
+  margin: 10px 0;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 85%;
+  gap: 20px;
+}
+
+.chart-container {
+  flex: 3;
+  background: #161b22;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  background: #161b22;
+  border-radius: 10px;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+button {
+  background-color: #238636;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+button:hover {
+  opacity: 0.9;
+}
+#shortBtn {
+  background-color: #da3633;
+}
+#closeBtn {
+  background-color: #6e40c9;
+}
+
+#log {
+  margin-top: 10px;
+  height: 150px;
+  background: #0d1117;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 0.9em;
+}
+
+#tradeSizeControl {
+  margin-bottom: 10px;
+}
+#tradeSize {
+  width: 100%;
+}
+#leverageControl {
+  margin-bottom: 10px;
+}
+#leverage {
+  width: 100%;
+}

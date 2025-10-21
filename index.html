@@ -1,0 +1,65 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trade</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Chart.js + Financial + Luxon -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@latest"></script>
+  </head>
+  <body>
+    <h1>Trade</h1>
+
+    <div class="main-container">
+      <div class="chart-container">
+        <canvas id="chart"></canvas>
+      </div>
+
+      <div class="side-panel">
+        <div id="price">가격: 100.00 USDT</div>
+        <div id="balance">잔고: 💰 10,000 USDT</div>
+        <div id="position">포지션: 없음</div>
+        <button id="longBtn">📈 Long (매수)</button>
+        <button id="shortBtn">📉 Short (매도)</button>
+        <button id="closeBtn">❌ 포지션 종료</button>
+        <div id="tradeSizeControl">
+          <label for="tradeSize"
+            >거래 비율: <span id="tradePercent">10%</span></label
+          >
+          <input type="range" id="tradeSize" min="1" max="100" value="10" />
+        </div>
+        <div id="leverageControl">
+          <label for="leverage"
+            >레버리지: <span id="leverageValue">1x</span></label
+          >
+          <input type="range" id="leverage" min="1" max="50" value="1" />
+        </div>
+        <div id="log"></div>
+        <div
+          id="newsBox"
+          style="margin-top: 10px; font-size: 0.9em; color: #ffd33d"
+        >
+          📰 최근 뉴스 없음
+        </div>
+      </div>
+    </div>
+
+    <div id="timeControls">
+      <button id="secView">⏱ 초단위 보기</button>
+      <button id="minView">🕒 분단위 보기</button>
+    </div>
+
+    <audio id="buySound" src="./media/buy.mp3" preload="auto"></audio>
+    <audio id="sellSound" src="./media/sell.mp3" preload="auto"></audio>
+    <audio id="closeSound" src="./media/close.wav" preload="auto"></audio>
+    <audio id="newsSound" src="news.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
